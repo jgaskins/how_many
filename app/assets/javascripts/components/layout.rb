@@ -22,20 +22,23 @@ Layout = Struct.new(:store) do
 
   def selected_particle
     particle = store.state[:selected_particle]
-    div(particle ? particle.name : ??)
+    image_url = particle ? particle.image_url : '/assets/placeholder.png'
+    label = particle ? particle.plural_name : '?'
+
+    div([
+      img(src: image_url, width: 142, height: 142),
+      label,
+    ])
   end
 
   def selected_container
     container = store.state[:selected_container]
+    image_url = container ? container.image_url : '/assets/placeholder.png'
+    label = container ? container.name : '?'
+
     div([
-      if container
-        [
-          img(src: container.image_url),
-          container.name
-        ]
-      else
-        '?'
-      end
+      img(src: image_url, width: 142, height: 142),
+      label,
     ])
   end
 
