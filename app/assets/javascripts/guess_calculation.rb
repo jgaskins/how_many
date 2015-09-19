@@ -12,7 +12,7 @@ class GuessCalculation
   end
 
   def close?
-    actual_count - guess < (actual_count * 0.25)
+    (actual_count - guess).abs < (actual_count * 0.25)
   end
 
   def actual_count

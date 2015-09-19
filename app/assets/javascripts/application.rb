@@ -20,6 +20,10 @@ initial_state = {
   # When the app loads, nothing is selected, so we just make them nil
   selected_particle: nil,
   selected_container: nil,
+
+  guess: nil,
+  guessed_correct?: nil,
+  guessed_close?: nil,
 }
 store = GrandCentral::Store.new(initial_state) do |state, action|
   # When an action is dispatched, we return the new app state based on
@@ -41,6 +45,8 @@ store = GrandCentral::Store.new(initial_state) do |state, action|
   when Actions::AddContainer
     state.merge containers: state[:containers] + [action.container]
 
+  when Actions::UpdateGuess
+    state.merge guess: action.guess
   when Actions::SubmitGuess
     calculation = GuessCalculation.new(
       guess: action.guess,
@@ -51,6 +57,15 @@ store = GrandCentral::Store.new(initial_state) do |state, action|
     state.merge(
       guessed_correct?: calculation.correct?,
       guessed_close?: calculation.close?
+    )
+
+  when Actions::Reset
+    state.merge(
+      guess: nil,
+      selected_particle: nil,
+      selected_container: nil,
+      guessed_correct?: nil,
+      guessed_close?: nil,
     )
 
   # We must always return a state object, so if we didn't handle the

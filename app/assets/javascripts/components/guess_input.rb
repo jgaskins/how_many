@@ -6,18 +6,18 @@ class GuessInput
   Enter = 13
   Esc = 27
 
-  attr_reader :guess_submission_handler, :guess, :store
+  attr_reader :guess_submission_handler, :store
 
   def initialize store, &on_submit_guess
     @guess_submission_handler = on_submit_guess
     @store = store
-    @guess = 0
   end
 
   def render
     div([
       input(
         type: :number,
+        value: guess,
         style: Stylesheet.guess_input,
         onkeyup: method(:handle_input),
         onchange: method(:handle_input_change),
@@ -31,6 +31,10 @@ class GuessInput
         'go'
       ),
     ])
+  end
+
+  def guess
+    store.state[:guess] || 0
   end
 
   def particle
@@ -56,7 +60,8 @@ class GuessInput
   end
 
   def handle_input_change event
-    @guess = event.target.value.to_i
+    Kernel.p guess = event.target.value.to_i
+    store.dispatch Actions::UpdateGuess.new(guess)
   end
 
   def handle_go event

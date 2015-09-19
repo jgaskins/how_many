@@ -16,15 +16,6 @@ Layout = Struct.new(:store) do
       ParticleList.new(store.state[:particles], store.method(:dispatch)),
       ContainerList.new(store.state[:containers], store.method(:dispatch)),
       guess_input,
-      if store.state[:guessed_correct?].nil?
-        'Waiting on guess'
-      elsif store.state[:guessed_correct?]
-        'You are right!'
-      elsif store.state[:guessed_close?]
-        'You are getting warm!'
-      else
-        'Not exactly.'
-      end,
       message,
     ])
   end
@@ -49,6 +40,24 @@ Layout = Struct.new(:store) do
   end
 
   def message
+    div(
+      if store.state[:guessed_correct?].nil?
+        'Waiting on guess'
+      elsif store.state[:guessed_correct?]
+        div([
+          p('You are right!'),
+          button({ onclick: method(:reset) }, "Play again!"),
+        ])
+      elsif store.state[:guessed_close?]
+        'You are getting warm!'
+      else
+        'Not exactly.'
+      end
+    )
+  end
+
+  def reset
+    store.dispatch Actions::Reset.new
   end
 
   def guess_input
