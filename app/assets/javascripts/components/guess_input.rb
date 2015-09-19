@@ -8,8 +8,7 @@ class GuessInput
 
   attr_reader :guess_submission_handler, :store
 
-  def initialize store, &on_submit_guess
-    @guess_submission_handler = on_submit_guess
+  def initialize store
     @store = store
   end
 
@@ -66,6 +65,6 @@ class GuessInput
 
   def handle_go event
     event.prevent
-    guess_submission_handler.call guess
+    store.dispatch Actions::SubmitGuess.new(guess)
   end
 end

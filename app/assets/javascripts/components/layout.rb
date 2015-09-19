@@ -61,8 +61,6 @@ Layout = Struct.new(:store) do
   end
 
   def guess_input
-    @guess_input ||= GuessInput.new(store) do |guess|
-      store.dispatch Actions::SubmitGuess.new(guess)
-    end
+    @guess_input ||= GuessInput.new(store)
   end
 end
