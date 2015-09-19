@@ -45,6 +45,8 @@ GEM
     execjs (2.6.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
+    grand_central (0.1.1)
+      opal (~> 0.8)
     hike (1.2.3)
     i18n (0.7.0)
     jquery-rails (4.0.5)
@@ -73,6 +75,8 @@ GEM
       paggio
     opal-jquery (0.4.0)
       opal (>= 0.7.0, < 0.9.0)
+    opal-pusher (0.1.1)
+      opal (~> 0.7)
     opal-rails (0.8.0)
       jquery-rails
       opal (~> 0.8.0)
@@ -144,6 +148,8 @@ PLATFORMS
 
 DEPENDENCIES
   clearwater
+  grand_central
+  opal-pusher
   opal-rails
   perpetuity-postgres
   rails (= 4.2.4)
