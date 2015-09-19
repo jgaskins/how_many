@@ -49,7 +49,7 @@ store = GrandCentral::Store.new(initial_state) do |state, action|
     state.merge guess: action.guess
   when Actions::SubmitGuess
     calculation = GuessCalculation.new(
-      guess: action.guess,
+      guess: action.guess.to_i,
       particle: state[:selected_particle],
       container: state[:selected_container],
     )

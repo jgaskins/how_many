@@ -25,7 +25,7 @@ class GuessInput
         {
           style: Stylesheet.go_button,
           onclick: method(:handle_go),
-          disabled: particle.nil? || container.nil? || guess.zero?
+          disabled: particle.nil? || container.nil? || guess.nil?
         },
         'go'
       ),
@@ -33,7 +33,7 @@ class GuessInput
   end
 
   def guess
-    store.state[:guess] || 0
+    store.state[:guess]
   end
 
   def particle
@@ -59,7 +59,7 @@ class GuessInput
   end
 
   def handle_input_change event
-    Kernel.p guess = event.target.value.to_i
+    guess = event.target.value
     store.dispatch Actions::UpdateGuess.new(guess)
   end
 
